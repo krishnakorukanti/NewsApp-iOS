@@ -17,8 +17,37 @@ protocol APIBuilder{
 let NewsAPI_KEY = "20e452494c374bf49d47b33a13c59fc1"
 //https://newsapi.org/v2/top-headlines?country=in&apiKey=20e452494c374bf49d47b33a13c59fc1
 
-enum NewsAPI{
-    case getNews
+enum NewsAPI : String{
+   
+    case getIndianNews = "in"
+    case getUsNews = "us"
+    case getRussianNews = "ru"
+    case getPhillipNews = "ph"
+    case getCanadaNews = "ca"
+    case getNzNews = "nz"
+    case getSANews = "sa"
+    case getAusNews = "au"
+    
+    var countryName : String{
+        switch self {
+        case .getIndianNews:
+            return "India"
+        case .getUsNews:
+            return "USA"
+        case .getRussianNews:
+            return "Russia"
+        case .getPhillipNews:
+            return  "Phillip"
+        case .getCanadaNews:
+            return "Canada"
+        case .getNzNews:
+            return "New Zealand"
+        case .getSANews:
+            return  "South Africa"
+        case .getAusNews:
+            return "Austraila"
+        }
+    }
 }
 
 extension NewsAPI : APIBuilder{
@@ -33,7 +62,7 @@ extension NewsAPI : APIBuilder{
            components.host = "newsapi.org"
            components.path = "/v2/top-headlines"
            components.queryItems = [
-            URLQueryItem(name: "country", value: "in"),
+            URLQueryItem(name: "country", value: self.rawValue),
             URLQueryItem(name: "apiKey", value: NewsAPI_KEY)
            ]
 
@@ -47,11 +76,13 @@ extension NewsAPI : APIBuilder{
     
     var baseUrl: URL {
         switch self {
-        case .getNews:
+  
+    case .getIndianNews:
             return  URL(string:"https://newsapi.org")!
-                
+    case .getUsNews:
+            return  URL(string:"https://newsapi.org")!
+        default : return  URL(string:"https://newsapi.org")!
     }
-    
-    
-}
-}
+    }
+    }
+

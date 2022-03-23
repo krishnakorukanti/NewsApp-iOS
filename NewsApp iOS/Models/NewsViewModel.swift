@@ -13,9 +13,13 @@ protocol NewsViewModel{
 
 class NewsViewModelImpl : ObservableObject , NewsViewModel{
     private let service : NewsService
+    @Published var newsAPI : NewsAPI = .getIndianNews
     init(service : NewsService){
         self.service = service
+       
     }
+    
+    
     private(set) var articles = [Article]()
     private var cancellables = Set<AnyCancellable>()
     
@@ -23,7 +27,7 @@ class NewsViewModelImpl : ObservableObject , NewsViewModel{
     func getArticles() {
         self.state = .loading
         let cancellable = service
-            .request(from: .getNews)
+            .request(from: newsAPI)
             .sink { res in
                 switch res{
                     
