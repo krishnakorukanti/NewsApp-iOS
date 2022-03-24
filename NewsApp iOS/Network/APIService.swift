@@ -35,7 +35,7 @@ protocol NewsService{
 struct NewsServiceImpl : NewsService{
     func request(from endpoint: NewsAPI) -> AnyPublisher<NewsData, APIError> {
         return URLSession.shared
-            .dataTaskPublisher(for: endpoint.urlRequest)
+            .dataTaskPublisher(for: endpoint.urlRequest!)
             .receive(on: DispatchQueue.main)
             .mapError{_ in APIError.unkown}
             .flatMap{

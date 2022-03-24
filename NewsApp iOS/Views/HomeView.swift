@@ -32,8 +32,6 @@ struct HomeView: View {
                         //.navigationBarTitleDisplayMode(.inline)
                         .toolbar {
                             HStack{
-                               
-                            
                                 Menu("Change Country") {
                                     ForEach(countryFilters,id : \.self){ item in
                                         Button {
